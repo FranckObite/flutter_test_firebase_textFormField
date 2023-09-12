@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1014478472177",
+    "project_id": "authtestnan",
+    "storage_bucket": "authtestnan.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1014478472177:android:721b00c295f4a8c74cfa50",
+        "android_client_info": {
+          "package_name": "com.example.firebase_test_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1014478472177-qmkgvlocadg4qjpill8hohorda1jjs43.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAJiOBPOEccEgW6puHM9-NAuD70aH1nIDU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1014478472177-qmkgvlocadg4qjpill8hohorda1jjs43.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
