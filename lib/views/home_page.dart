@@ -111,13 +111,15 @@ class _HomePageState extends State<HomePage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Container(
-                width: MediaQuery.of(context).size.width / 1.5,
-                height: MediaQuery.of(context).size.height / 5,
-                decoration: const BoxDecoration(
-                    image: DecorationImage(
-                        image: AssetImage('images/logo.png'),
-                        fit: BoxFit.cover)),
+              Flexible(
+                child: Container(
+                  width: MediaQuery.of(context).size.width / 1.5,
+                  height: MediaQuery.of(context).size.height / 5,
+                  decoration: const BoxDecoration(
+                      image: DecorationImage(
+                          image: AssetImage('images/logo.png'),
+                          fit: BoxFit.cover)),
+                ),
               ),
               const Spacer(),
               monTexfield(

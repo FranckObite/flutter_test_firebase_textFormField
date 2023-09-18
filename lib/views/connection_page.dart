@@ -16,6 +16,7 @@ class ConnectionPage extends StatefulWidget {
 }
 
 class _ConnectionPageState extends State<ConnectionPage> {
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   late TextEditingController controllerUserName;
   late TextEditingController controllerEmail;
   late TextEditingController passWord;
@@ -41,6 +42,7 @@ class _ConnectionPageState extends State<ConnectionPage> {
   }
 
   void enregistrer() async {
+    final formState = _formKey.currentState;
     showDialog(
         context: context,
         builder: (context) {
@@ -48,33 +50,34 @@ class _ConnectionPageState extends State<ConnectionPage> {
             child: CircularProgressIndicator(),
           );
         });
-    try {
-      await FirebaseAuth.instance.signInWithEmailAndPassword(
-          email: controllerEmail.text, password: passWord.text);
-      // ignore: use_build_context_synchronously
-      Navigator.pushReplacement(context,
-          MaterialPageRoute(builder: (context) => const LoadingPage()));
+    if (formState?.validate() ?? false) {
+      try {
+        await FirebaseAuth.instance.signInWithEmailAndPassword(
+            email: controllerEmail.text, password: passWord.text);
+        // ignore: use_build_context_synchronously
+        Navigator.pushReplacement(context,
+            MaterialPageRoute(builder: (context) => const LoadingPage()));
 
-      setState(() {
-        controllerUserName.text = '';
-        controllerEmail.text = '';
-        confimPassword.text = "";
-        passWord.text = '';
-      });
-      // ignore: use_build_context_synchronously
-      Navigator.of(context).pop();
-    } on FirebaseAuthException catch (e) {
-      // ignore: use_build_context_synchronously
-      Navigator.pop(context);
-      // ignore: use_build_context_synchronously
-      showDialog(
-          context: context,
-          builder: (context) {
-            return AlertDialog(
-              title: const Text("Méssage d'erreur"),
-              content: Text(e.code),
-            );
-          });
+        setState(() {
+          controllerUserName.text = '';
+          controllerEmail.text = '';
+          confimPassword.text = "";
+          passWord.text = '';
+        });
+      } on FirebaseAuthException catch (e) {
+        // ignore: use_build_context_synchronously
+        Navigator.pop(context);
+
+        // ignore: use_build_context_synchronously
+        showDialog(
+            context: context,
+            builder: (context) {
+              return AlertDialog(
+                title: const Text("Méssage d'erreur"),
+                content: Text(e.code),
+              );
+            });
+      }
     }
   }
 
@@ -87,16 +90,22 @@ class _ConnectionPageState extends State<ConnectionPage> {
         padding: const EdgeInsets.only(
             top: 100.0, bottom: 10, left: 8.0, right: 8.0),
         child: Column(
+          mainAxisSize: MainAxisSize.max,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          verticalDirection: VerticalDirection.down,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Container(
-              width: MediaQuery.of(context).size.width / 1.5,
-              height: MediaQuery.of(context).size.height / 5,
-              decoration: const BoxDecoration(
-                  image: DecorationImage(
-                      image: AssetImage('images/logo.png'), fit: BoxFit.cover)),
+            Flexible(
+              child: Container(
+                width: MediaQuery.of(context).size.width / 1.5,
+                height: MediaQuery.of(context).size.height / 5,
+                decoration: const BoxDecoration(
+                    image: DecorationImage(
+                        image: AssetImage('images/logo.png'),
+                        fit: BoxFit.cover)),
+              ),
             ),
-            const Spacer(),
+            const Flexible(child: Spacer()),
             monTexfield(
                 context: context,
                 controller: controllerEmail,
@@ -135,6 +144,7 @@ class _ConnectionPageState extends State<ConnectionPage> {
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
               children: [
                 const Text(
                   "Vous n'avez pas de compte? ",

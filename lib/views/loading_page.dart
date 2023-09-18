@@ -2,6 +2,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_test_app/views/home_page.dart';
 import 'package:flutter/material.dart';
 
+import 'connection_page.dart';
+
 class LoadingPage extends StatefulWidget {
   const LoadingPage({super.key});
 
@@ -20,8 +22,10 @@ class _LoadingPageState extends State<LoadingPage> {
           IconButton(
               onPressed: () {
                 FirebaseAuth.instance.signOut();
-                Navigator.pushReplacement(context,
-                    MaterialPageRoute(builder: (context) => const HomePage()));
+                Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const ConnectionPage()));
               },
               icon: const Icon(Icons.logout))
         ],
